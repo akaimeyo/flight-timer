@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Flight Stopwatch</string>
+    <string name="start_block">Start Block Time</string>
+    <string name="start_flight">Takeoff</string>
+    <string name="stop_block">Stop Block Time</string>
+    <string name="stop_flight">Landing</string>
+    <string name="time_block_elapsed_count">time</string>
+    <string name="time_flight_elapsed_count">time</string>
+    <string name="time_block_elapsed">Elapsed Block Time</string>
+    <string name="time_flight_elapsed">Elapsed Flight Time</string>
+    <string name="flightDate">Flight Date:</string>
+    <string name="flightDateInput">${date}</string>
+</resources>
