@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
     Button blockButton;
     Button flightButton;
+    Button resetButton;
     TextView blockTimeTextView;
     TextView flightTimeTextView;
+    TextView flightDateInput;
     Stopwatch stopwatch = new Stopwatch(blockTime, flightTime);
 
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable updateTimerRunnable;
 
     @Override
@@ -39,30 +41,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        stopwatch.createTimers();
-        blockButton = findViewById(R.id.blockButton);
-        flightButton = findViewById(R.id.flightButton);
-        blockTimeTextView = findViewById(R.id.blockTime);
-        flightTimeTextView = findViewById(R.id.flightTime);
-
-        blockButton.setOnClickListener(v -> {
-            if (!stopwatch.blockTime.isStarted()) {
-                stopwatch.startBlockTime();
-                blockButton.setText(R.string.stop_block);
-            } else {
-                stopwatch.stopBlockTime();
-                blockButton.setText(R.string.start_block);
-            }
-        });
-        flightButton.setOnClickListener(v -> {
-            if (!stopwatch.flightTime.isStarted()) {
-                stopwatch.startFlightTime();
-                flightButton.setText(R.string.stop_flight);
-            } else {
-                stopwatch.stopFlightTime();
-                flightButton.setText(R.string.start_flight);
-            }
-        });
+        initElements();
+        initListeners();
+        setFlightDate();
 
         updateTimerRunnable = new Runnable() {
             @Override
@@ -76,6 +57,30 @@ public class MainActivity extends AppCompatActivity {
         handler.post(updateTimerRunnable);
     }
 
+    public void initElements() {
+        stopwatch.createTimers();
+        blockButton = findViewById(R.id.blockButton);
+        flightButton = findViewById(R.id.flightButton);
+        resetButton = findViewById(R.id.resetButton);
+        blockTimeTextView = findViewById(R.id.blockTime);
+        flightTimeTextView = findViewById(R.id.flightTime);
+        flightDateInput = findViewById(R.id.flightDateInput);
+
+    }
+
+    public void initListeners() {
+
+        blockButton.setOnClickListener(v -> {
+            stopwatch.toggleBlockTime();
+            blockButton.setText(stopwatch.isBlockTimeStarted ? R.string.stop_block : R.string.start_block);
+        });
+        flightButton.setOnClickListener(v -> {
+            stopwatch.toggleFlightTime();
+            flightButton.setText(stopwatch.isFlightTimeStarted ? R.string.stop_flight : R.string.start_flight);
+        });
+        resetButton.setOnClickListener(v -> stopwatch.resetTimers());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -87,5 +92,9 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         handler.removeCallbacks(updateTimerRunnable);
 
+    }
+
+    public void setFlightDate() {
+        flightDateInput.setText(stopwatch.getFLightDate());
     }
 }

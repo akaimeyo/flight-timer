@@ -17,16 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
-
-    <TextView
-        android:id="@+id/elapsedFlight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
-        android:text="@string/time_flight_elapsed"
-        app:layout_constraintBottom_toTopOf="@+id/flightTime"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintVertical_bias="0.636" />
 
     <TextView
         android:id="@+id/blockTime"
@@ -37,60 +28,94 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintTop_toBottomOf="@+id/elapsedBlock"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/elapsedBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="48dp"
         android:text="@string/time_block_elapsed"
-        app:layout_constraintBottom_toTopOf="@+id/blockTime"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/elapsedFlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="144dp"
+        android:text="@string/time_flight_elapsed"
+        app:layout_constraintBottom_toTopOf="@+id/flightTime"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/blockButton"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginTop="20dp"
         android:text="@string/start_block"
-        app:layout_constraintBottom_toTopOf="@+id/flightButton"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flightTime" />
 
     <Button
         android:id="@+id/flightButton"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="60dp"
         android:text="@string/start_flight"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blockButton" />
 
     <TextView
         android:id="@+id/flightDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
         android:text="@string/flightDate"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="47dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/flightDateInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
         android:text="@string/flightDateInput"
         android:textSize="20sp"
-        android:textFontWeight="30"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="51dp" />
+        app:layout_constraintStart_toEndOf="@+id/flightDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.57" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="139dp"
+        android:layout_height="42dp"
+        android:text="@string/reset_timers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flightButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

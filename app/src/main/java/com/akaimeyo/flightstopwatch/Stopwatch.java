@@ -12,6 +12,8 @@ public class Stopwatch {
 
     String flightTimer = "FlightTimer";
     String blockTimer = "BlockTimer";
+    boolean isBlockTimeStarted = false;
+    boolean isFlightTimeStarted = false;
 
     public Stopwatch(StopWatch blockTime, StopWatch flightTime) {
         this.blockTime = blockTime;
@@ -21,7 +23,7 @@ public class Stopwatch {
     StopWatch flightTime;
 
     StopWatch blockTime;
-    SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     public void createTimers() {
@@ -29,34 +31,35 @@ public class Stopwatch {
         blockTime = new StopWatch("blockTime");
     }
 
-    public void startFlightTime() {
-        if(!flightTime.isStarted()){
-            flightTime.start();
-            Log.d(flightTimer, flightTimer + " started");
-        }
-    }
-
-    public void startBlockTime() {
-        if(!blockTime.isStarted()){
+    public void toggleBlockTime() {
+        if (!blockTime.isStarted()) {
             blockTime.start();
-            Log.d(blockTimer, blockTimer + " started");}
-    }
-
-    public void stopFlightTime() {
-        if (flightTime.isStarted()) {
-            flightTime.stop();
-            Log.d(flightTimer, flightTime.toString());
+            isBlockTimeStarted = true;
+            Log.d(blockTimer, blockTimer + " started");
+        } else if (blockTime.isStarted() && !blockTime.isSuspended()) {
+            blockTime.suspend();
+            isBlockTimeStarted = false;
+            Log.d(blockTimer, blockTimer + " suspended");
+        } else if (blockTime.isSuspended()) {
+            blockTime.resume();
+            isBlockTimeStarted = true;
+            Log.d(blockTimer, blockTimer + " resumed");
         }
     }
 
-    public void stopBlockTime() {
-        if(blockTime.isStarted()) {
-            blockTime.stop();
-            Log.d(blockTimer, blockTime.toString());
-        }
-        if(flightTime.isStarted()) {
-            flightTime.stop();
-            Log.d(flightTimer, flightTime.toString() + " stopped with Block time");
+    public void toggleFlightTime() {
+        if (!flightTime.isStarted()) {
+            flightTime.start();
+            isFlightTimeStarted = true;
+            Log.d(flightTimer, flightTimer + " started");
+        } else if (flightTime.isStarted() && !flightTime.isSuspended()) {
+            flightTime.suspend();
+            isFlightTimeStarted = false;
+            Log.d(flightTimer, flightTimer + " suspended");
+        } else if (flightTime.isSuspended()) {
+            flightTime.resume();
+            isFlightTimeStarted = true;
+            Log.d(flightTimer, flightTimer + " resumed");
         }
     }
 
@@ -71,21 +74,18 @@ public class Stopwatch {
         long minutes = blockTime.getDuration().toMinutes();
         long hours = minutes / 60;
         long minutesModulo = minutes % 60;
-        return String.format(Locale.getDefault(), "%02d:%02d", hours, minutesModulo);
+        long seconds = blockTime.getDuration().getSeconds() % 60; //for debugging only
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutesModulo, seconds);
     }
 
-    public String getFlightStartDate(){
-        return Date.from(flightTime.getStartInstant()).toString();
+    public String getFLightDate() {
+        return dateFormatter.format(new Date().getTime());
     }
 
-    public String getFlightStopDate(){
-        return Date.from(flightTime.getStopInstant()).toString();
-    }
-    public String getBlockStartDate(){
-        return Date.from(blockTime.getStartInstant()).toString();
-    }
-
-    public String getBlockStopDate(){
-        return Date.from(blockTime.getStopInstant()).toString();
+    public void resetTimers() {
+        blockTime.reset();
+        flightTime.reset();
+        isBlockTimeStarted = false;
+        isFlightTimeStarted = false;
     }
 }
