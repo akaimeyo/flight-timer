@@ -9,5 +9,8 @@
     <string name="time_block_elapsed">Elapsed Block Time</string>
     <string name="time_flight_elapsed">Elapsed Flight Time</string>
     <string name="flightDate">Flight Date:</string>
-    <string name="flightDateInput">${date}</string>
+    <string name="flightDateInput" />
+    <string name="block_times">Block times</string>
+    <string name="flight_times">Flight times</string>
+    <string name="reset_timers">Reset Timers</string>
 </resources>
